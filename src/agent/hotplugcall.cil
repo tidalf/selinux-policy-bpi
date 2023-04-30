@@ -16,7 +16,7 @@
        ;;
 
        (filecon
-        "/usr/bin/hotplug-call"
+        "/sbin/hotplug-call"
         file
         execfile_file_context)
 
@@ -28,12 +28,10 @@
               (call .file.execfile_obj_type_transition
                     (ARG1 execfile file "hotplug-call")))
 
-       (macro allow_create_tmpfile_runtimetmpfile_dir ((type ARG1))
-              (allow ARG1 tmpfile.runtimetmpfile (dir (create))))
-
        ;;
        ;; Policy
        ;;
+
 
        (blockinherit .agent.base_template)
 
@@ -51,7 +49,6 @@
 
        (call .class.read_sysfile_lnk_files (subj))
        (call .class.search_sysfile_dirs (subj))
-       (call allow_create_tmpfile_runtimetmpfile_dir (subj))
 
        (call .cpuinfo.read_procfile_files (subj))
 
