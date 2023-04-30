@@ -37,6 +37,7 @@
 
        (allow subj self (process (getsched)))
        (allow subj self create_unix_dgram_socket)
+       (call .tmpfile.create_runtimetmpfile_dirs (subj))
 
        (call .sys.list_rootfile_dirs (subj))
        ;; compat with genfs_seclabel_symlinks=0

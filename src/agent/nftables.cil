@@ -106,8 +106,7 @@
        (optional nftables_opt_nftqostmpfile
                  (call .nftqos.read_tmpfile_files (subj)))
 
-       (optional nftables_opt_rcfirewall
-                 (call .rcfirewall.use_fds (subj)))
+       (call .rcfirewall.use_fds (subj))
 
        (optional nftables_opt_rcnftqos
                  (call .rcnftqos.use_fds (subj))))

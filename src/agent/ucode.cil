@@ -52,6 +52,7 @@
        (blockinherit .file.data.obj_template)
 
        (allow subj self create_unix_stream_socket)
+       (allow ucode.subj nftables.conffile (dir (search)))
 
        (call list_datafile_dirs (subj))
        (call read_datafile_files (subj))
@@ -107,6 +108,7 @@
        (call .version.read_procfile_files (subj))
 
        (call .www.search_miscfile_dirs (subj))
+       (call .initscript.use_all_fds (subj))
 
        (optional ucode_cgiscriptfile
                  (call .file.search_cgiscriptfile_dirs (subj)))
@@ -122,8 +124,6 @@
                  (call .fw3.use_fds (subj))
                  (call .fw3.writeinherited_fifo_files (subj)))
 
-       (optional ucode_opt_initscript
-                 (call .initscript.use_all_fds (subj)))
 
        (optional ucode_opt_luci
                  (call .luci.cgi.read_cgiscriptfile_files (subj))
@@ -133,9 +133,6 @@
                  ;; /tmp/luci-indexcache.3f7fdf37.json
                  (call .luci.manage_tmpfile_files (subj))
                  (call .luci.obj_type_transition_tmpfile (subj file "*")))
-
-       (optional ucode_opt_nftables
-                 (call .nftables.subj_type_transition (subj)))
 
        (optional ucode_opt_odhcp6c
                  (call .odhcp6c.writeinherited_fifo_files (subj)))
