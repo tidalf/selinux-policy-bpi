@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: © 2021 Dominick Grift <dominick.grift@defensec.nl>
 # SPDX-License-Identifier: Unlicense
 
-.PHONY: all clean policypackets noluci mintesttgt policy check install
+.PHONY: all clean minimal myfork policy check install
 
 # default target, all modules: unboundhotplug and rcunbound are mutually exclusive
 modules = $(shell find src -type f -name '*.cil' \
@@ -15,9 +15,10 @@ modulespackets = $(shell find src -type f -name '*.cil' \
 	! -name unboundhotplug.cil -print0 | LC_ALL=C sort -z | xargs -r0)
 
 # no luci: this target is more robust but does it not cover luci and does not target initscripts
+
 modulesnoluci = $(shell find src -type f -name '*.cil' \
 	-regextype posix-egrep \
-	! -regex 'src/(cgi|init)?script/.*\.cil' \
+# 	! -regex 'src/(cgi|init)?script/.*\.cil' \
 	! -name luci.cil ! -name rpcd.cil ! -name rrd.cil ! -name uhttpd.cil \
 	-print0 | LC_ALL=C sort -z | xargs -r0)
 
@@ -42,6 +43,9 @@ modulesmintesttgt = $(shell find src -type f -name '*.cil' \
 
 polvers = 31
 
+modulesmyfork = $(shell find src -type f -name '*.cil' \
+        ! -name sandbox.cil -printf '%p ')
+
 all: clean policy check
 
 clean: clean.$(polvers)
@@ -55,6 +59,10 @@ noluci.%: $(modulesnoluci)
 mintesttgt: mintesttgt.$(polvers)
 mintesttgt.%: $(modulesmintesttgt)
 	secilc -vvv -O --policyvers=$* $^
+
+myfork: myfork.$(polvers)
+myfork.%: $(modulesmyfork)
+	secilc -vvv --policyvers=$* $^
 
 policy: policy.$(polvers)
 policy.%: $(modules)
