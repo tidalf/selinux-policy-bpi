@@ -43,8 +43,8 @@ modulesmintesttgt = $(shell find src -type f -name '*.cil' \
 
 polvers = 31
 
-modulesmyfork = $(shell find src -type f -name '*.cil' \
-        ! -name sandbox.cil -printf '%p ')
+#modulesmyfork = $(shell find src -type f -name '*.cil' \
+#       ! -name sandbox.cil -printf '%p ')
 
 all: clean policy check
 
