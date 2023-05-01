@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: © 2021 Dominick Grift <dominick.grift@defensec.nl>
 # SPDX-License-Identifier: Unlicense
 
-.PHONY: all clean minimal myfork policy check install
+.PHONY: all clean policypackets noluci mintesttgt policy check install
 
 # default target, all modules: unboundhotplug and rcunbound are mutually exclusive
 modules = $(shell find src -type f -name '*.cil' \

@@ -1,0 +1,5 @@
+(block helloworld ;; declare a new container
+(blockinherit .agent.base_template) ;; this will declare types for both the process and executable file and associate some basic rules with them
+(filecon "/etc/config/helloworld" file execfile_file_context)) ;; this will associate the file context with /root/helloworld and close container
+(in .sys (call .helloworld.subj_type_transition (subj))) ;; this macro was made available when we inherited the agent.base_template inside the helloworld container
+;; it will cause selinux to automatically transition the context of any process associated with u:r:sys.subj to u:r:helloworld.subj when files with the u:r:helloworld.execfile context are executed
